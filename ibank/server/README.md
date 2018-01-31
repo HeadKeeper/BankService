@@ -18,4 +18,5 @@ RESTful API to manage clients written in **Go** and uses **MongoDB** as storage
 
 ### Dependencies
 
-Parsing properties file - [TOML parser](http://github.com/BurntSushi/toml)
+- Parsing properties file - [TOML parser](http://github.com/BurntSushi/toml)
+- Client for database - [MongoDB](https://www.mongodb.com/) [driver](https://gopkg.in/mgo.v2)
