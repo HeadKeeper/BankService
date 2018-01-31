@@ -4,14 +4,14 @@ import (
 	"model"
 	"time"
 	"fmt"
-	"config"
+	_ "config"
 )
 
 func testCreateClient()  {
-	var configuration = config.Read()
+	//var configuration = config.Read()
 
-	var database = ConnectToDatabase(configuration.Server, configuration.Database)
-	var clientDAO = CreateClientDAO(database)
+	//var database = ConnectToDatabase(configuration.Server, configuration.Database)
+	var clientDAO = CreateClientDAO()
 
 	err := clientDAO.Insert(model.Client{
 		Name:                   "Test",

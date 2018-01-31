@@ -13,9 +13,10 @@ type ClientDAO struct {
 	collection *mgo.Collection
 }
 
-func CreateClientDAO(db *mgo.Database) ClientDAO {
+func CreateClientDAO() ClientDAO {
+	var database = ConnectToDatabase("localhost:27017", "bank_service")
 	return ClientDAO {
-		collection: db.C(collectionName),
+		collection: database.C(collectionName),
 	}
 }
 

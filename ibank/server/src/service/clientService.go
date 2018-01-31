@@ -4,6 +4,7 @@ import (
 	. "model"
 	"errors"
 	"dao"
+	"libs/gopkg.in/mgo.v2/bson"
 )
 
 
@@ -11,8 +12,8 @@ type ClientService struct {
 	dao dao.ClientDAO
 }
 
-func CreateClientService(clientDao dao.ClientDAO) ClientService {
-	return ClientService{dao: clientDao}
+func CreateClientService() ClientService {
+	return ClientService{dao: dao.CreateClientDAO()}
 }
 
 func (service *ClientService) Save(client Client) error {
@@ -55,6 +56,14 @@ func (service *ClientService) DeleteById(id string) error {
 	}
 
 	return service.dao.Delete(client)
+}
+
+func (service *ClientService) UpdateClientById(id string, newData Client) (error) {
+	if len(id) <= 0 {
+		return errors.New("invalid id")
+	}
+	newData.ID = bson.ObjectIdHex(id)
+	return service.dao.Update(newData)
 }
 
 func checkClient(client Client) error {
