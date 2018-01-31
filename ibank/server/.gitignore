@@ -1,0 +1,10 @@
+## IDE Config ##
+.idea/
+
+## Output ##
+out/
+
+## Libs ##
+pkg/
+bin/
+src/libs/
