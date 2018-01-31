@@ -7,12 +7,12 @@ import (
 )
 
 type Client struct {
-	ID         			   bson.ObjectId `bson:"_id" json:"id"`
+	ID         			   bson.ObjectId `bson:"_id,omitempty" json:"id"`
 	Surname    			   string        `bson:"surname" json:"surname"`
 	Name       			   string        `bson:"name" json:"name"`
 	Patronymic 			   string        `bson:"patronymic" json:"patronymic"`
 	Birthday   			   time.Time     `bson:"birthday" json:"birthday"`
-	Gender     			   string        `bson:"birthday" json:"birthday"`
+	Gender     			   string        `bson:"gender" json:"gender"`
 
 	PassportSeries 		   string 		 `bson:"passportSeries" json:"passportSeries"`
 	//with mask
@@ -41,7 +41,7 @@ type Client struct {
 	//not required
 	JobAddress   	 	   string		 `bson:"jobAddress" json:"jobAddress"`
 	//not required
-	JobPosition 		   string		 `bson:"jobAddress" json:"jobAddress"`
+	JobPosition 		   string		 `bson:"jobPosition" json:"jobPosition"`
 	//not required
 	MonthlyIncome 		   float64		 `bson:"monthlyIncome" json:"monthlyIncome"`
 
