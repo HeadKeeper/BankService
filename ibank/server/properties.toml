@@ -1,2 +1,2 @@
-server="ibank"
+server="localhost:27017"
 database="bank_service"
