@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new client</title>
+</head>
+
+<body>
+<form>
+    First name <input type="text" id="fname"><br>
+    Last name <input type="text" id="lname"><br><br>
+    Surname <input type="text" id=""><br>
+    Name <input type="text" id=""><br>
+    Patronymic <input type="text" id=""><br>
+    Birthday <input type="date" id=""><br>
+    Gender <input type="text" id=""><br>
+
+    PassportSeries <input type="text" id=""><br>
+    //with mask
+    PassportNumber <input type="text" id=""><br>
+    PassportGiver <input type="text" id=""><br>
+    PassportCreationDate <input type="date" id=""><br>
+    //with mask
+    PassportIdentityNumber <input type="text" id=""><br>
+
+    BirthPlace <input type="text" id=""><br>
+    //select from list
+    LivingCity <input type="text" id=""><br>
+    LivingAddress <input type="text" id=""><br>
+    //select from list
+    RegisterCity <input type="text" id=""><br>
+    RegisterAddress <input type="text" id=""><br>
+
+    //with mask
+    PhoneHome <input type="text" id=""><br>
+    //with mask
+    PhoneMobile <input type="text" id=""><br>
+
+    //not required
+    Email <input type="text" id=""><br>
+
+    //not required
+    JobAddress <input type="text" id=""><br>
+    //not required
+    JobPosition <input type="text" id=""><br>
+    //not required
+    MonthlyIncome <input type="text" id=""><br>
+
+    //select from list
+    MartialStatus <input type="text" id=""><br>
+    //select from list
+    Nationality <input type="text" id=""><br>
+    //select from list
+    Disability <input type="text" id=""><br>
+
+    Pensioner <input type="checkbox" id=""><br>
+    Army <input type="checkbox" id=""><br>
+    <input type="button" onclick="submitForm()" value="Submit">
+</form>
+
+<script>
+    function submitForm() {
+        var formData = JSON.stringify($("#myForm").serializeArray());
+        $.ajax({
+            type: "POST",
+            url: "serverUrl",
+            data: formData,
+            success: function(){},
+            dataType: "json",
+            contentType : "application/json"
+        });
+    }
+</script>
+</body>
+</html>

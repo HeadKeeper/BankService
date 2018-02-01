@@ -13,6 +13,7 @@ import (
 func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", GetAboutPage).Methods("GET")
+	router.HandleFunc("/client/add", GetClientForm).Methods("GET")
 	router.HandleFunc("/client/{id}", GetClientById).Methods("GET")
 	router.HandleFunc("/clients", GetAllClients).Methods("GET")
 	router.HandleFunc("/client", AddNewClient).Methods("POST")

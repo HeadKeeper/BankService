@@ -8,6 +8,7 @@ import (
 	"model"
 	"log"
 	"libs/gopkg.in/mgo.v2/bson"
+	"web"
 )
 
 var service = CreateClientService()
@@ -92,4 +93,13 @@ func GetAllClients(writer ResponseWriter, request *Request) {
 		return
 	}
 	respondArrayWithJson(writer, StatusOK, clients)
+}
+
+func GetClientForm(writer ResponseWriter, request *Request) {
+	clientPage,error := web.GetHtml("client")
+	if error != nil {
+		respondWithError(writer, StatusNotFound, "Page not found")
+	}
+	log.Println(request.Header)
+	writer.Write([]byte(clientPage))
 }
