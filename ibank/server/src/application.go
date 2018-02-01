@@ -2,12 +2,13 @@ package main
 
 import (
 	"libs/github.com/gorilla/mux"
-	. "controller"
 	. "net/http"
-	"log"
-)
 
-const SERVER_ADDR = ":3000"
+	"log"
+
+	. "controller"
+	"config"
+)
 
 func main() {
 	router := mux.NewRouter()
@@ -18,8 +19,8 @@ func main() {
 	router.HandleFunc("/client/{id}", DeleteClient).Methods("DELETE")
 	router.HandleFunc("/client/{id}", EditClient).Methods("PUT")
 
-	log.Printf("Server starting at %s...", SERVER_ADDR)
-	if err := ListenAndServe(SERVER_ADDR, router); err != nil {
+	log.Printf("Server starting at %s...", config.SERVER_PORT)
+	if err := ListenAndServe(config.SERVER_PORT, router); err != nil {
 		log.Fatal(err)
 	}
 }

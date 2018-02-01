@@ -5,18 +5,19 @@ import (
 	"libs/gopkg.in/mgo.v2"
 
 	. "model"
+	"config"
 )
 
-const collectionName = "clients"
+const COLLECTION_NAME = "clients"
 
 type ClientDAO struct {
 	collection *mgo.Collection
 }
 
 func CreateClientDAO() ClientDAO {
-	var database = ConnectToDatabase("localhost:27017", "bank_service")
+	var database = ConnectToDatabase(config.DATABASE_SERVER, config.DATABASE_NAME)
 	return ClientDAO {
-		collection: database.C(collectionName),
+		collection: database.C(COLLECTION_NAME),
 	}
 }
 
