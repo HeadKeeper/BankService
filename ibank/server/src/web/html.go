@@ -8,11 +8,10 @@ import (
 
 const FILE_SERVER_PATH  = "./ibank/server/resources/public/%s.html"
 //const FILE_SERVER_PATH  = "./resources/public/%s.html"
-
 const EMPTY_PAGE = ""
 
 func GetHtml(pageName string) (string, error) {
-	b, err := ioutil.ReadFile(fmt.Sprintf(FILE_SERVER_PATH, pageName)) // just pass the file name
+	b, err := ioutil.ReadFile(fmt.Sprintf(FILE_SERVER_PATH, pageName))
 	if err != nil {
 		return EMPTY_PAGE, err
 	}
