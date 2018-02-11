@@ -13,8 +13,7 @@ class EntityContainer extends Component {
 
   sendClient(data) {
     console.log(data);
-
-    // this.props.actions.createClient
+    this.props.actions.createClient(data)
   }
 
   render() {

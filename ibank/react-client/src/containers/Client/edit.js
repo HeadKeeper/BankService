@@ -21,8 +21,7 @@ class EntityContainer extends Component {
 
   sendClient(data) {
     console.log(data);
-
-    // this.props.actions.updateClient
+    this.props.actions.updateClient(data);
   }
 
   render() {

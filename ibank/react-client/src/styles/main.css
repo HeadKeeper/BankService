@@ -33,3 +33,7 @@ form {
 .field input, select {
     font-size: 12px;
 }
+.field span {
+    font-size: 10px;
+    color: red;
+}

@@ -10,14 +10,20 @@ export const minLength = (min) => (value) =>
 export const maxLength = (max) => (value) =>
   value.length < max ? undefined : `Length must be smaller than ${max}`;
 
+export const length = (len) => (value) =>
+  value.length === len ? undefined : `Length must be equals ${len}`;
+
 export const minValue = (min) => (value) =>
   isNaN(value) || value >= min ? undefined : `Should be greater than ${min}`;
 
 export const maxValue = (max) => (value) =>
   isNaN(value) || value >= max ? undefined : `Should be smaller than ${max}`;
 
+export const valuesEqual = (val1, val2) => val1 && val2 && val2 === val1;
+
+export const email = () => (value) =>
+  /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ? undefined : `Invalid email address`;
+
 export const composeValidators = (...validators) => (value) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
-
-export const valuesEqual = (val1, val2) => val1 && val2 && val2 === val1;
 

@@ -1,8 +1,14 @@
 import React from "react"
 import {Form, Field} from "react-final-form"
-import {required} from "../../modules/App/Form/validators";
+import {composeValidators, required, length, email} from "../../modules/App/Form/validators";
+import {
+  normalizePassportIdentityNumber,
+  normalizePassportNumber,
+  normalizePassportSeries,
+  normalizePhone
+} from "../../modules/App/Form/normalizer";
 
-const ClientEdit = (props) => {
+const ClientAdd = (props) => {
   const onSubmit = (data) => {
     props.processSubmit(data);
   };
@@ -22,7 +28,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="surname">Surname</label>
                 <input {...input} type="text" id="surname"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -36,7 +42,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="name">Name</label>
                 <input {...input} type="text" id="name"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -49,7 +55,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="patronymic">Patronymic</label>
                 <input {...input} type="text" id="patronymic"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -63,7 +69,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="birthday">Birthday</label>
                 <input {...input} type="date" id="birthday"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -80,7 +86,7 @@ const ClientEdit = (props) => {
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -88,27 +94,30 @@ const ClientEdit = (props) => {
 
           <Field
             name="passportSeries"
-            validate={required}
+            validate={composeValidators(required, length(2))}
+            parse={normalizePassportSeries}
+            placeholder="XX"
           >
             {({input, meta}) =>
               <div className="field">
                 <label htmlFor="passportSeries">Passport Series</label>
                 <input {...input} type="text" id="passportSeries"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="passportNumber"
-            validate={required}
+            validate={composeValidators(required, length(7))}
+            parse={normalizePassportNumber}
+            placeholder="9999999"
           >
             {({input, meta}) =>
               <div className="field">
-                <div >With mask</div>
                 <label htmlFor="passportNumber">Passport Number</label>
                 <input {...input} type="text" id="passportNumber"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -122,7 +131,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="passportGiver">Passport Giver</label>
                 <input {...input} type="text" id="passportGiver"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -136,7 +145,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="passportCreationDate">Passport Creation Date</label>
                 <input {...input} type="date" id="passportCreationDate"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -144,14 +153,15 @@ const ClientEdit = (props) => {
 
           <Field
             name="passportIdentityNumber"
-            validate={required}
+            validate={composeValidators(required, length(14))}
+            parse={normalizePassportIdentityNumber}
+            placeholder="9999999X999XX9"
           >
             {({input, meta}) =>
               <div className="field">
-                <div >With mask</div>
                 <label htmlFor="passportIdentityNumber">Passport Identity Number</label>
                 <input {...input} type="text" id="passportIdentityNumber"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -164,7 +174,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="birthPlace">Birth Place</label>
                 <input {...input} type="text" id="birthPlace"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -178,7 +188,7 @@ const ClientEdit = (props) => {
                 <div >Select from list</div>
                 <label htmlFor="livingCity">Living City</label>
                 <input {...input} type="text" id="livingCity"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -191,7 +201,7 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="livingAddress">Living Address</label>
                 <input {...input} type="text" id="livingAddress"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -205,7 +215,7 @@ const ClientEdit = (props) => {
                 <div >Select from list</div>
                 <label htmlFor="registerCity">Register City</label>
                 <input {...input} type="text" id="registerCity"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -218,90 +228,85 @@ const ClientEdit = (props) => {
               <div className="field">
                 <label htmlFor="registerAddress">Register Address</label>
                 <input {...input} type="text" id="registerAddress"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="phoneHome"
-            validate={required}
+            validate={composeValidators(required, length(15))}
+            parse={normalizePhone}
+            placeholder="80(17)XXX-XX-XX"
           >
             {({input, meta}) =>
               <div className="field">
-                <div >With mask</div>
                 <label htmlFor="phoneHome">Home Phone</label>
                 <input {...input} type="text" id="phoneHome"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="phoneMobile"
-            validate={required}
+            validate={composeValidators(required, length(15))}
+            parse={normalizePhone}
+            placeholder="80(XX)XXX-XX-XX"
           >
             {({input, meta}) =>
               <div className="field">
-                <div >With mask</div>
                 <label htmlFor="phoneMobile">Mobile Phone</label>
                 <input {...input} type="text" id="phoneMobile"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="email"
-            validate={required}
+            validate={email}
           >
             {({input, meta}) =>
               <div className="field">
-                <div>Not required</div>
                 <label htmlFor="email">Email</label>
-                <input {...input} type="text" id="email"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                <input {...input} type="email" id="email"/>
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="jobAddress"
-            validate={required}
           >
             {({input, meta}) =>
               <div className="field">
-                <div>Not</div>
                 <label htmlFor="jobAddress">Job Address</label>
                 <input {...input} type="text" id="jobAddress"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
           <Field
             name="jobPosition"
-            validate={required}
           >
             {({input, meta}) =>
               <div className="field">
-                <div>Not required</div>
                 <label htmlFor="jobPosition">Job Position</label>
                 <input {...input} type="text" id="jobPosition"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="monthlyIncome"
-            validate={required}
           >
             {({input, meta}) =>
               <div className="field">
-                <div>Not required</div>
                 <label htmlFor="monthlyIncome">Monthly Income</label>
                 <input {...input} type="number" id="monthlyIncome"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -315,7 +320,7 @@ const ClientEdit = (props) => {
                 <div >Select from list</div>
                 <label htmlFor="martialStatus">Martial Status</label>
                 <input {...input} type="text" id="martialStatus"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -329,7 +334,7 @@ const ClientEdit = (props) => {
                 <div >Select from list</div>
                 <label htmlFor="nationality">Nationality</label>
                 <input {...input} type="text" id="nationality"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -343,33 +348,31 @@ const ClientEdit = (props) => {
                 <div >Select from list</div>
                 <label htmlFor="disability">Disability</label>
                 <input {...input} type="text" id="disability"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="pensioner"
-            validate={required}
           >
             {({input, meta}) =>
               <div className="field">
                 <label htmlFor="pensioner">Pensioner</label>
                 <input {...input} type="checkbox" id="pensioner"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
 
           <Field
             name="army"
-            validate={required}
           >
             {({input, meta}) =>
               <div className="field">
                 <label htmlFor="army">Army</label>
                 <input {...input} type="checkbox" id="army"/>
-                {meta.error && meta.touched && <span>{meta.error}</span>}
+                {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }
           </Field>
@@ -382,4 +385,4 @@ const ClientEdit = (props) => {
     />)
 };
 
-export const ClientEditComponent = ClientEdit;
+export const ClientAddComponent = ClientAdd;
