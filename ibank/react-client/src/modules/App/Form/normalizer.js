@@ -5,12 +5,12 @@ export const normalizePhone = (value) => {
   if (onlyNums.length <= 3) return onlyNums;
 
   if (onlyNums.length <= 7)
-    return `${onlyNums.slice(0, 2)}(${onlyNums.slice(2, 4)})${onlyNums.slice(4)}`;
+    return `${onlyNums.slice(0, 3)}(${onlyNums.slice(3, 5)})${onlyNums.slice(5)}`;
 
   if (onlyNums.length <= 9)
-    return `${onlyNums.slice(0, 2)}(${onlyNums.slice(2, 4)})${onlyNums.slice(4, 7)}-${onlyNums.slice(7, 9)}`;
+    return `${onlyNums.slice(0, 3)}(${onlyNums.slice(3, 5)})${onlyNums.slice(5, 8)}-${onlyNums.slice(8, 10)}`;
 
-  return `${onlyNums.slice(0, 2)}(${onlyNums.slice(2, 4)})${onlyNums.slice(4, 7)}-${onlyNums.slice(7, 9)}-${onlyNums.slice(9, 11)}`
+  return `${onlyNums.slice(0, 3)}(${onlyNums.slice(3, 5)})${onlyNums.slice(5, 8)}-${onlyNums.slice(8, 10)}-${onlyNums.slice(10, 12)}`
 };
 
 export const normalizePassportSeries = (value) => {

@@ -15,7 +15,7 @@ const ClientAdd = (props) => {
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={onSubmit.bind(this)}
       initialValues={props.data}
       render={({handleSubmit, submitting}) =>
         <form onSubmit={handleSubmit}>
@@ -235,7 +235,7 @@ const ClientAdd = (props) => {
 
           <Field
             name="phoneHome"
-            validate={composeValidators(required, length(15))}
+            validate={composeValidators(required, length(16))}
             parse={normalizePhone}
             placeholder="80(17)XXX-XX-XX"
           >
@@ -250,9 +250,9 @@ const ClientAdd = (props) => {
 
           <Field
             name="phoneMobile"
-            validate={composeValidators(required, length(15))}
+            validate={composeValidators(required, length(16))}
             parse={normalizePhone}
-            placeholder="80(XX)XXX-XX-XX"
+            placeholder="375(XX)XXX-XX-XX"
           >
             {({input, meta}) =>
               <div className="field">
@@ -265,12 +265,11 @@ const ClientAdd = (props) => {
 
           <Field
             name="email"
-            validate={email}
           >
             {({input, meta}) =>
               <div className="field">
                 <label htmlFor="email">Email</label>
-                <input {...input} type="email" id="email"/>
+                <input {...input} type="text" id="email"/>
                 {meta.error && meta.touched && <span className="field__error">{meta.error}</span>}
               </div>
             }

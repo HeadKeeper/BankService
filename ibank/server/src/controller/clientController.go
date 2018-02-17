@@ -8,7 +8,6 @@ import (
 	"model"
 	"log"
 	"libs/gopkg.in/mgo.v2/bson"
-	"web"
 )
 
 var service = CreateClientService()
@@ -44,11 +43,12 @@ func GetClientById(writer ResponseWriter, request *Request) {
 
 func AddNewClient(writer ResponseWriter, request *Request) {
 	defer request.Body.Close()
-	var client model.Client
-	if err := json.NewDecoder(request.Body).Decode(&client); err != nil {
+	var data model.Data
+	if err := json.NewDecoder(request.Body).Decode(&data); err != nil {
 		respondWithError(writer, StatusBadRequest, "Invalid request payload")
 		return
 	}
+	client := data.Client
 	log.Printf("Adding new user %s %s", client.Name, client.Surname)
 	client.ID = bson.NewObjectId()
 	if err := service.Save(client); err != nil {
@@ -73,11 +73,12 @@ func EditClient(writer ResponseWriter, request *Request) {
 	defer request.Body.Close()
 	params := mux.Vars(request)
 	id := params["id"]
-	var client model.Client
-	if err := json.NewDecoder(request.Body).Decode(&client); err != nil {
+	var data model.Data
+	if err := json.NewDecoder(request.Body).Decode(&data); err != nil {
 		respondWithError(writer, StatusBadRequest, "Invalid request payload")
 		return
 	}
+	client := data.Client
 	if err := service.UpdateClientById(id, client); err != nil {
 		respondWithError(writer, StatusInternalServerError, err.Error())
 		return
@@ -93,13 +94,4 @@ func GetAllClients(writer ResponseWriter, request *Request) {
 		return
 	}
 	respondArrayWithJson(writer, StatusOK, clients)
-}
-
-func GetClientForm(writer ResponseWriter, request *Request) {
-	clientPage,error := web.GetHtml("client")
-	if error != nil {
-		respondWithError(writer, StatusNotFound, "Page not found")
-	}
-	log.Println(request.Header)
-	writer.Write([]byte(clientPage))
 }

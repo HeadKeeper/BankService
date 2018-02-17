@@ -3,40 +3,30 @@ package main
 import (
 	. "net/http"
 	"libs/github.com/gorilla/mux"
-	"libs/github.com/rs/cors"
-
-	"config"
 	. "controller"
-
 	"log"
+	"config"
+	"libs/github.com/rs/cors"
+	"dao"
 )
-
-const PUBLIC_SCRIPTS_PATH = "./ibank/server/resources/public/script/"
-//const PUBLIC_SCRIPTS_PATH = "./resources/public/script/"
 
 func configureHttpMethods(router *mux.Router) {
 	router.HandleFunc("/", GetAboutPage).Methods("GET")
 	router.HandleFunc("/clients/{id}", GetClientById).Methods("GET")
 	router.HandleFunc("/clients", GetAllClients).Methods("GET")
-	router.HandleFunc("/client", AddNewClient).Methods("POST")
+	router.HandleFunc("/clients", AddNewClient).Methods("POST")
 	router.HandleFunc("/clients/{id}", DeleteClient).Methods("DELETE")
-	router.HandleFunc("/clients/{id}", EditClient).Methods("PUT")
-}
-
-func configureResourcesPaths(router *mux.Router) {
-	router.PathPrefix("/resources/").Handler(
-		StripPrefix("/resources/", FileServer(Dir(PUBLIC_SCRIPTS_PATH))),
-	)
+	router.HandleFunc("/clients/{id}", EditClient).Methods("POST")
 }
 
 func createConfiguredRouter() (*mux.Router) {
 	router := mux.NewRouter()
-	configureResourcesPaths(router)
 	configureHttpMethods(router)
 	return router
 }
 
 func main() {
+	dao.UpdateCollectionConstraints(config.DATABASE_SERVER, config.DATABASE_NAME)
 	handler := cors.Default().Handler(createConfiguredRouter())
 	log.Printf("Server starting at %s...", config.SERVER_PORT)
 	if err := ListenAndServe(config.SERVER_PORT, handler); err != nil {

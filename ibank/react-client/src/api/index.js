@@ -6,7 +6,6 @@ const serverURL = "http://localhost:3001";
 export function* getElements(url, successHandler, failHandler) {
   try {
     const response = yield call(axios.get, serverURL + url);
-
     yield put(successHandler(response.data));
   }
   catch (e) {
@@ -27,7 +26,6 @@ export function* getElement(url, id, successHandler, failHandler) {
 export function* sendElement(url, data, successHandler, failHandler) {
   try {
     const response = yield call(axios.post, serverURL + url, {data: data});
-    console.log(response);
     yield put(successHandler());
   }
   catch (e) {
@@ -37,8 +35,8 @@ export function* sendElement(url, data, successHandler, failHandler) {
 
 export function* updateElement(url, id, data, successHandler, failHandler) {
   try {
+    console.log(serverURL + url + "/" + id)
     const response = yield call(axios.post, serverURL + url + "/" + id, {data: data});
-    console.log(response);
     yield put(successHandler(response));
   }
   catch (e) {
@@ -49,7 +47,6 @@ export function* updateElement(url, id, data, successHandler, failHandler) {
 export function* deleteElement(url, id, successHandler, failHandler) {
   try {
     const response = yield call(axios.delete, serverURL + url + "/" + id);
-    console.log(response);
     yield put(successHandler());
   }
   catch (e) {
