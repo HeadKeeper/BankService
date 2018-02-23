@@ -15,7 +15,7 @@ func configureHttpMethods(router *mux.Router) {
 	router.HandleFunc("/clients/{id}", GetClientById).Methods("GET")
 	router.HandleFunc("/clients", GetAllClients).Methods("GET")
 	router.HandleFunc("/clients", AddNewClient).Methods("POST")
-	router.HandleFunc("/clients/{id}", DeleteClient).Methods("DELETE")
+	router.HandleFunc("/clients/{id}/delete", DeleteClient).Methods("POST")
 	router.HandleFunc("/clients/{id}", EditClient).Methods("POST")
 }
 

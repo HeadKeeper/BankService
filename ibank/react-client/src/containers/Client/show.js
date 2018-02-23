@@ -3,10 +3,12 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {Link} from "react-router-dom";
 
+import {navigateTo} from "../../modules/App/Navigator";
 import { ClientShowComponent } from "../../components";
 
 import {
   getClient,
+  deleteClient,
   cleanClientWorkspace,
   selectClientData
 } from "../../modules/Client"
@@ -21,6 +23,11 @@ class EntityContainer extends Component {
     this.props.actions.cleanClientWorkspace()
   }
 
+  deleteClientAction() {
+    this.props.actions.deleteClient(this.props.client.id);
+    navigateTo("/clients/");
+  }
+
   render() {
     return (
       <div className="container">
@@ -29,6 +36,9 @@ class EntityContainer extends Component {
         </label>
         <label>
           <Link to={"/clients/"+this.props.match.params.id+"/edit"}>Edit</Link>
+        </label>
+        <label>
+          <button onClick={this.deleteClientAction.bind(this)}>Delete</button>
         </label>
 
         <h3>Client</h3>
@@ -52,6 +62,7 @@ export const ClientShow = connect(
   (dispatch) => ({
     actions: bindActionCreators({
       getClient,
+      deleteClient,
       cleanClientWorkspace
     }, dispatch)
   })

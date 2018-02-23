@@ -82,7 +82,7 @@ const ClientAdd = (props) => {
               <div className="field">
                 <label htmlFor="gender">Gender</label>
                 <select {...input} id="gender">
-                  <option value="male">Male</option>
+                  <option selected value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
                 </select>

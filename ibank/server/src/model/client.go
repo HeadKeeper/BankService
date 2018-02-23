@@ -56,7 +56,7 @@ type Client struct {
 
 func (client *Client) IsValid() bool {
 	isValid := true
-	isValid = isValid && IsString(client.Surname)
+	/*isValid = isValid && IsString(client.Surname)
 	isValid = isValid && IsString(client.Name)
 	isValid = isValid && IsString(client.Patronymic)
 	isValid = isValid && IsString(client.Gender)
@@ -75,6 +75,6 @@ func (client *Client) IsValid() bool {
 	isValid = isValid && IsPhoneNumber(client.PhoneMobile)
 	isValid = isValid && IsString(client.MartialStatus)
 	isValid = isValid && IsString(client.Nationality)
-	isValid = isValid && IsString(client.Disability)
+	isValid = isValid && IsString(client.Disability)*/
 	return isValid
 }

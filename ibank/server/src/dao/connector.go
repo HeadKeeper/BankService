@@ -2,7 +2,6 @@ package dao
 
 import (
 	"log"
-
 	"libs/gopkg.in/mgo.v2"
 )
 
@@ -19,11 +18,8 @@ func UpdateCollectionConstraints(server, database string) (error) {
 
 	db := session.DB(database)
 	index := mgo.Index{
-		Key:        []string{"name", "phone"},
+		Key:        []string{"passportIdentityNumber"},
 		Unique:     true,
-		DropDups:   true,
-		Background: true,
-		Sparse:     true,
 	}
 	db.C("clients").EnsureIndex(index)
 	return nil

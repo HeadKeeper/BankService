@@ -46,7 +46,7 @@ export function* updateElement(url, id, data, successHandler, failHandler) {
 
 export function* deleteElement(url, id, successHandler, failHandler) {
   try {
-    const response = yield call(axios.delete, serverURL + url + "/" + id);
+    const response = yield call(axios.post, serverURL + url + "/" + id + "/delete");
     yield put(successHandler());
   }
   catch (e) {
