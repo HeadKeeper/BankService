@@ -1,7 +1,8 @@
-package model
+package entity
 
 import (
 	"libs/gopkg.in/mgo.v2/bson"
+	. "model"
 )
 
 type Client struct {
@@ -77,4 +78,8 @@ func (client *Client) IsValid() bool {
 	isValid = isValid && IsString(client.Nationality)
 	isValid = isValid && IsString(client.Disability)
 	return isValid
+}
+
+func (client *Client) GetID() (bson.ObjectId) {
+	return client.ID
 }
